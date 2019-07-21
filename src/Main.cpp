@@ -2,9 +2,7 @@
 
 int main()
 {
-	//Example
-	auto amountOfLines = LineCounter::getAmountOfLines("C:/Users/micha/Desktop/cpp/SFML/RPG/RPG");
+	auto amountOfLines = LineCounter::getAmountOfLines("/home/michal/repos/rpg");
 	std::cout <<"Amount of lines in project = "<< amountOfLines << std::endl;
-	getchar();
 	return 0;
 }
