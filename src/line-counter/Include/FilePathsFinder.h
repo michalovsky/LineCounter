@@ -9,6 +9,6 @@ class FilePathsFinder
 public:
     virtual ~FilePathsFinder() = default;
 
-    virtual FilePaths findFilePaths(const std::string& directoryPath) const = 0;
+    virtual FilePaths findFilePaths(const std::string& path) const = 0;
 };
 }

@@ -9,6 +9,6 @@ namespace lineCounter
 class FilePathsFinderMock : public FilePathsFinder
 {
 public:
-    MOCK_CONST_METHOD1(findFilePaths, FilePaths(const std::string& directoryPath));
+    MOCK_CONST_METHOD1(findFilePaths, FilePaths(const std::string& path));
 };
 }

@@ -3,6 +3,7 @@
 #include "gtest/gtest.h"
 
 #include "utils/FileAccessMock.h"
+
 #include "utils/exceptions/FileNotFound.h"
 
 using namespace lineCounter;

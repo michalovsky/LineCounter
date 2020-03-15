@@ -3,11 +3,12 @@
 #include "boost/algorithm/cxx11/all_of.hpp"
 #include "boost/algorithm/cxx11/any_of.hpp"
 #include "gtest/gtest.h"
-#include "algorithm"
 
 #include "ExtensionsReaderMock.h"
 #include "FilePathsFinderMock.h"
 #include "PathsToIgnoreReaderMock.h"
+
+#include "algorithm"
 
 using namespace lineCounter;
 using namespace ::testing;
@@ -57,8 +58,7 @@ TEST_F(DefaultFilePathsSelectorTest,
     EXPECT_CALL(*filePathsFinder, findFilePaths(targetPath)).WillOnce(Return(filePaths));
     EXPECT_CALL(*pathsToIgnoreReader, readPathsToIgnore(pathToFileWithPathsToIgnore))
         .WillOnce(Return(noPathsToIgnore));
-    EXPECT_CALL(*extensionsReader, readExtensions(pathToFileWithExtensions))
-        .WillOnce(Return(extensions));
+    EXPECT_CALL(*extensionsReader, readExtensions(pathToFileWithExtensions)).WillOnce(Return(extensions));
 
     const auto actualFilePaths = selector.selectFilePaths(configFilePaths);
 
@@ -70,8 +70,7 @@ TEST_F(DefaultFilePathsSelectorTest, givenPathsToIgnoreAndSpecificExtensions_sho
     EXPECT_CALL(*filePathsFinder, findFilePaths(targetPath)).WillOnce(Return(filePaths));
     EXPECT_CALL(*pathsToIgnoreReader, readPathsToIgnore(pathToFileWithPathsToIgnore))
         .WillOnce(Return(pathsToIgnore));
-    EXPECT_CALL(*extensionsReader, readExtensions(pathToFileWithExtensions))
-        .WillOnce(Return(extensions));
+    EXPECT_CALL(*extensionsReader, readExtensions(pathToFileWithExtensions)).WillOnce(Return(extensions));
 
     const auto actualFilePaths = selector.selectFilePaths(configFilePaths);
 

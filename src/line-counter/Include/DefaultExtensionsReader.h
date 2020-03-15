@@ -1,9 +1,11 @@
 #pragma once
 
-#include "ExtensionsReader.h"
 #include <memory>
-#include "utils/FileAccess.h"
+
 #include "boost/optional.hpp"
+
+#include "ExtensionsReader.h"
+#include "utils/FileAccess.h"
 
 namespace lineCounter
 {

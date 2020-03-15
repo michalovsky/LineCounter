@@ -1,10 +1,10 @@
 #include "RecursiveFilePathsFinder.h"
 
-#include "utils/exceptions/DirectoryNotFound.h"
-
 #include "gtest/gtest.h"
 
 #include "utils/FileAccessMock.h"
+
+#include "utils/exceptions/DirectoryNotFound.h"
 
 using namespace lineCounter;
 using namespace ::testing;
@@ -13,7 +13,9 @@ namespace
 {
 const auto existingDirectoryPath{"existing directory path"};
 const auto nonExistingDirectoryPath{"non existing directory path"};
+const auto existingFilePath{"file path"};
 const FilePaths filePaths{"filepath1", "filepath2"};
+const FilePaths filePathsWithSingleFilePath{"file path"};
 }
 
 class RecursiveFilePathsFinderTest : public Test
@@ -23,9 +25,20 @@ public:
     RecursiveFilePathsFinder filePathsFinder{fileAccess};
 };
 
+TEST_F(RecursiveFilePathsFinderTest, givenFilePath_shouldReturnFilePathsWithOneFilePath)
+{
+    EXPECT_CALL(*fileAccess, isRegularFile(existingFilePath)).WillOnce(Return(true));
+
+    const auto actualFilePaths = filePathsFinder.findFilePaths(existingFilePath);
+
+    ASSERT_EQ(actualFilePaths, filePathsWithSingleFilePath);
+}
+
 TEST_F(RecursiveFilePathsFinderTest, givenNonExistingDirectoryPath_shouldReturnEmptyFilePaths)
 {
-    EXPECT_CALL(*fileAccess, getAllPathsFromDirectory(nonExistingDirectoryPath)).WillOnce(Throw(utils::exceptions::DirectoryNotFound{""}));
+    EXPECT_CALL(*fileAccess, isRegularFile(nonExistingDirectoryPath)).WillOnce(Return(false));
+    EXPECT_CALL(*fileAccess, getAllFilenamesFromDirectory(nonExistingDirectoryPath))
+        .WillOnce(Throw(utils::exceptions::DirectoryNotFound{""}));
 
     const auto actualFilePaths = filePathsFinder.findFilePaths(nonExistingDirectoryPath);
 
@@ -34,7 +47,8 @@ TEST_F(RecursiveFilePathsFinderTest, givenNonExistingDirectoryPath_shouldReturnE
 
 TEST_F(RecursiveFilePathsFinderTest, givenExistingDirectoryPath_shouldReturnAllFilePathsFromThisDirectory)
 {
-    EXPECT_CALL(*fileAccess, getAllPathsFromDirectory(existingDirectoryPath)).WillOnce(Return(filePaths));
+    EXPECT_CALL(*fileAccess, isRegularFile(existingDirectoryPath)).WillOnce(Return(false));
+    EXPECT_CALL(*fileAccess, getAllFilenamesFromDirectory(existingDirectoryPath)).WillOnce(Return(filePaths));
 
     const auto actualFilePaths = filePathsFinder.findFilePaths(existingDirectoryPath);
 

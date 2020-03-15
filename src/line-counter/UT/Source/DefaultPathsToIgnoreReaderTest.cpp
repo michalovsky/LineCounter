@@ -1,8 +1,9 @@
+#include "DefaultPathsToIgnoreReader.h"
+
 #include "gtest/gtest.h"
 
 #include "utils/FileAccessMock.h"
 
-#include "DefaultPathsToIgnoreReader.h"
 #include "utils/exceptions/FileNotFound.h"
 
 using namespace lineCounter;

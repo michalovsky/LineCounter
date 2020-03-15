@@ -2,17 +2,20 @@
 
 #include <iostream>
 
-#include "utils/exceptions/FileNotFound.h"
 #include "utils/StringHelper.h"
+#include "utils/exceptions/FileNotFound.h"
 
 namespace lineCounter
 {
 
-DefaultExtensionsReader::DefaultExtensionsReader(std::shared_ptr<utils::FileAccess> fileAccessInit) : fileAccess{std::move(fileAccessInit)} {}
+DefaultExtensionsReader::DefaultExtensionsReader(std::shared_ptr<utils::FileAccess> fileAccessInit)
+    : fileAccess{std::move(fileAccessInit)}
+{
+}
 
 FileExtensions DefaultExtensionsReader::readExtensions(const std::string& filePath) const
 {
-    if(const auto fileContent = readFileContainingExtensions(filePath))
+    if (const auto fileContent = readFileContainingExtensions(filePath))
     {
         return utils::getSplitLines(*fileContent);
     }

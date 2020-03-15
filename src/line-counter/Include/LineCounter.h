@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
+
 #include "FilePathsSelector.h"
 #include "utils/FileAccess.h"
-#include <memory>
 
 namespace lineCounter
 {
@@ -24,4 +25,3 @@ private:
 };
 
 }
-

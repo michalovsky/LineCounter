@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FilePaths.h"
 #include "ConfigFilePaths.h"
+#include "FilePaths.h"
 
 namespace lineCounter
 {

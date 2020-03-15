@@ -1,6 +1,7 @@
 #include "LineCounter.h"
 
 #include "gtest/gtest.h"
+
 #include "FilePathsSelectorMock.h"
 #include "utils/FileAccessMock.h"
 
@@ -19,5 +20,5 @@ public:
 
 TEST_F(LineCounterTest, ccc)
 {
-//    const auto amountOfLines = lineCounter.getAmountOfLines()
+    //    const auto amountOfLines = lineCounter.getAmountOfLines()
 }

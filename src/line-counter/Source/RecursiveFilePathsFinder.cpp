@@ -12,17 +12,25 @@ RecursiveFilePathsFinder::RecursiveFilePathsFinder(std::shared_ptr<utils::FileAc
 {
 }
 
-FilePaths RecursiveFilePathsFinder::findFilePaths(const std::string& directoryPath) const
+FilePaths RecursiveFilePathsFinder::findFilePaths(const std::string& path) const
 {
-    return getAllPathsFromDirectory(directoryPath);
+    if (pathIsFile(path))
+    {
+        return FilePaths{path};
+    }
+    return getAllPathsFromDirectory(path);
 }
 
-std::vector<std::string>
-RecursiveFilePathsFinder::getAllPathsFromDirectory(const std::string& directoryPath) const
+bool RecursiveFilePathsFinder::pathIsFile(const std::string& path) const
+{
+    return fileAccess->isRegularFile(path);
+}
+
+FilePaths RecursiveFilePathsFinder::getAllPathsFromDirectory(const std::string& directoryPath) const
 {
     try
     {
-        return fileAccess->getAllPathsFromDirectory(directoryPath);
+        return fileAccess->getAllFilenamesFromDirectory(directoryPath);
     }
     catch (const utils::exceptions::DirectoryNotFound& e)
     {
