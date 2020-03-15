@@ -1,20 +1,15 @@
-cmake_minimum_required(VERSION 3.14)
-set( PROJECT_NAME line-counter  )
+cmake_minimum_required(VERSION 3.12.1)
 
+set( PROJECT_NAME line-counter )
 project( ${PROJECT_NAME} )
 
+add_subdirectory(externals)
+
 set(CMAKE_CXX_STANDARD 17)
+set( CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address" )
+set( FLAGS -std=c++17 -Wall -g3 -fno-omit-frame-pointer -Wextra -Werror)
 
-set( CMAKE_BUILD_TYPE Debug )
+set(GMOCK_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googletest/googlemock/include")
+set(GTEST_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googletest/googletest/include")
 
-set(SOURCES
-        ${CMAKE_SOURCE_DIR}/src/Main.cpp
-        ${CMAKE_SOURCE_DIR}/src/File.cpp
-        ${CMAKE_SOURCE_DIR}/src/LineCounter.cpp
-        )
-
-add_executable( ${PROJECT_NAME} ${SOURCES})
-
-target_include_directories(${PROJECT_NAME} PUBLIC "./include")
-
-target_link_libraries(${PROJECT_NAME} stdc++fs)
+add_subdirectory(src)
