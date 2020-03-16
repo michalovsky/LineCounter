@@ -41,5 +41,3 @@ Example content of <i>exampleExtensions.txt</i>:
     
     .cpp
     .h
-    .txt
-
