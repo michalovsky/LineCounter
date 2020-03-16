@@ -26,7 +26,7 @@ Counts lines from files in given path.
     
 <b>Configuration of files:</b>
 <ol>  
-     <li>targetPathToCountLinesIn - paths to files or directories where lines will be counted recursively</li>  
+     <li>targetPathsToCountLinesIn - paths to files or directories where lines will be counted recursively</li>  
      <li>pathToFileWithPathsToIgnore - path to file that contains paths that will be ignored from counting lines</li> 
      <li>pathToFileWithExtensions - path to file that contains file extensions according to which files will be selected</li>  
 </ol>  
