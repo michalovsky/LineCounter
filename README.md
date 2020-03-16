@@ -22,7 +22,7 @@ Counts lines from files in given path.
                                                  pathToFileWithExtensions};
     const auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);
     
-<b>Configuration of files:<b>
+<b>Configuration of files:</b>
 <ol>  
      <li>targetPathToCountLinesIn - path to file or directory where lines will be counted recursively</li>  
      <li>pathToFileWithPathsToIgnore - path to file that contains paths that will be ignored from counting lines</li> 
@@ -32,12 +32,12 @@ Counts lines from files in given path.
 
 Example configuration files are included in <i>exampleConfigFiles</i> folder:
 
-Example content of examplePathsToIgnore.txt:
+Example content of <i>examplePathsToIgnore.txt</i>:
           
     /home/michal/repos/glossary/externals
     /somePath
 
-Example content of exampleExtensions.txt:
+Example content of <i>exampleExtensions.txt</i>:
     
     .cpp
     .h
