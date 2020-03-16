@@ -22,7 +22,7 @@ DefaultFilePathsSelector::DefaultFilePathsSelector(
 
 FilePaths DefaultFilePathsSelector::selectFilePaths(const ConfigFilePaths& configFilePaths) const
 {
-    auto filePaths = filePathFinder->findFilePaths(configFilePaths.targetPathToCountLinesIn);
+    auto filePaths = filePathFinder->findFilePaths(configFilePaths.targetPathsToCountLinesIn);
     const auto pathsToIgnore = readPathsToIgnore(configFilePaths.pathToFileWithPathsToIgnore);
     const auto fileExtensions = readExtensions(configFilePaths.pathToFileWithExtensions);
     deleteFilePathsContainingPathToIgnore(filePaths, pathsToIgnore);

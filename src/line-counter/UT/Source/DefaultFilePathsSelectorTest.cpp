@@ -23,7 +23,7 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b)
     std::sort(b.begin(), b.end());
     return (a == b);
 }
-const auto targetPath{"targetPath"};
+const std::vector<std::string> targetPath{{"targetPath"}};
 const std::string pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
 const std::string pathToFileWithExtensions{"pathToFileWithExtensions"};
 const ConfigFilePaths configFilePaths{targetPath, pathToFileWithPathsToIgnore, pathToFileWithExtensions};

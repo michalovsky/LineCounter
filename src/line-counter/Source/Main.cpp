@@ -6,7 +6,8 @@ int main()
 {
     lineCounter::LineCounterApplication lineCounterApp;
 
-    const auto targetPathToCountLinesIn = "/home/michal/repos/glossary/src";
+    const std::vector<std::string> targetPathToCountLinesIn = {"/home/michal/repos/rpg/src",
+                                                               "/home/michal/repos/rpg/include"};
     const auto pathToFileWithPathsToIgnore =
         "/home/michal/repos/line-counter/exampleConfigFiles/examplePathsToIgnore.txt";
     const auto pathToFileWithExtensions =
@@ -14,6 +15,6 @@ int main()
     lineCounter::ConfigFilePaths configFilePaths{targetPathToCountLinesIn, pathToFileWithPathsToIgnore,
                                                  pathToFileWithExtensions};
     const auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);
-    std::cout << "Amount of lines in path: " << targetPathToCountLinesIn << " = " << amountOfLines;
+    std::cout << "Amount of lines in paths:" << amountOfLines;
     return 0;
 }

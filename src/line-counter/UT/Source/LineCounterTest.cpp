@@ -10,7 +10,7 @@ using namespace lineCounter;
 
 namespace
 {
-const auto targetPath{"targetPath"};
+const std::vector<std::string> targetPath{{"targetPath"}};
 const std::string pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
 const std::string pathToFileWithExtensions{"pathToFileWithExtensions"};
 const ConfigFilePaths configFilePaths{targetPath, pathToFileWithPathsToIgnore, pathToFileWithExtensions};

@@ -1,5 +1,6 @@
 #include "RecursiveFilePathsFinder.h"
 
+#include <algorithm>
 #include <iostream>
 
 #include "utils/exceptions/DirectoryNotFound.h"
@@ -12,21 +13,41 @@ RecursiveFilePathsFinder::RecursiveFilePathsFinder(std::shared_ptr<utils::FileAc
 {
 }
 
-FilePaths RecursiveFilePathsFinder::findFilePaths(const std::string& path) const
+FilePaths RecursiveFilePathsFinder::findFilePaths(const Paths& pathsToSearch) const
 {
-    if (pathIsFile(path))
+    FilePaths filePaths;
+    for (const auto& pathToSearch : pathsToSearch)
     {
-        return FilePaths{path};
+        const auto filePathsInPath = findFilePathsInPath(pathToSearch);
+        filePaths.insert(filePaths.end(), filePathsInPath.begin(), filePathsInPath.end());
     }
-    return getAllPathsFromDirectory(path);
+    return filePaths;
 }
 
-bool RecursiveFilePathsFinder::pathIsFile(const std::string& path) const
+FilePaths RecursiveFilePathsFinder::findFilePathsInPath(const Path& pathToSearch) const
+{
+    if (pathIsFile(pathToSearch))
+    {
+        return FilePaths{pathToSearch};
+    }
+    return getAllFilePathsFromDirectory(pathToSearch);
+}
+
+bool RecursiveFilePathsFinder::pathIsFile(const Path& path) const
 {
     return fileAccess->isRegularFile(path);
 }
 
-FilePaths RecursiveFilePathsFinder::getAllPathsFromDirectory(const std::string& directoryPath) const
+FilePaths RecursiveFilePathsFinder::getAllFilePathsFromDirectory(const Path& directoryPath) const
+{
+    auto pathsFromDirectory = getAllPathsFromDirectory(directoryPath);
+    pathsFromDirectory.erase(std::remove_if(pathsFromDirectory.begin(), pathsFromDirectory.end(),
+                                            [&](const Path& path) { return not pathIsFile(path); }),
+                             pathsFromDirectory.end());
+    return pathsFromDirectory;
+}
+
+Paths RecursiveFilePathsFinder::getAllPathsFromDirectory(const Path& directoryPath) const
 {
     try
     {

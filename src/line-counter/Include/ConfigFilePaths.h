@@ -1,19 +1,20 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace lineCounter
 {
 struct ConfigFilePaths
 {
-    std::string targetPathToCountLinesIn;
+    std::vector<std::string> targetPathsToCountLinesIn;
     std::string pathToFileWithPathsToIgnore;
     std::string pathToFileWithExtensions;
 };
 
 inline bool operator==(const ConfigFilePaths& ls, const ConfigFilePaths& rs)
 {
-    return ls.targetPathToCountLinesIn == rs.targetPathToCountLinesIn &&
+    return ls.targetPathsToCountLinesIn == rs.targetPathsToCountLinesIn &&
            ls.pathToFileWithExtensions == rs.pathToFileWithExtensions &&
            ls.pathToFileWithPathsToIgnore == rs.pathToFileWithPathsToIgnore;
 }

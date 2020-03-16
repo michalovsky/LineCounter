@@ -13,11 +13,13 @@ class RecursiveFilePathsFinder : public FilePathsFinder
 public:
     explicit RecursiveFilePathsFinder(std::shared_ptr<utils::FileAccess>);
 
-    FilePaths findFilePaths(const std::string& path) const override;
+    FilePaths findFilePaths(const Paths&) const override;
 
 private:
-    bool pathIsFile(const std::string& path) const;
-    FilePaths getAllPathsFromDirectory(const std::string& directoryPath) const;
+    FilePaths findFilePathsInPath(const Path&) const;
+    bool pathIsFile(const Path&) const;
+    FilePaths getAllFilePathsFromDirectory(const Path&) const;
+    Paths getAllPathsFromDirectory(const Path&) const;
 
     std::shared_ptr<utils::FileAccess> fileAccess;
 };

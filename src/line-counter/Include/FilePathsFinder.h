@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FilePaths.h"
+#include "Paths.h"
 
 namespace lineCounter
 {
@@ -9,6 +9,6 @@ class FilePathsFinder
 public:
     virtual ~FilePathsFinder() = default;
 
-    virtual FilePaths findFilePaths(const std::string& path) const = 0;
+    virtual FilePaths findFilePaths(const Paths&) const = 0;
 };
 }
