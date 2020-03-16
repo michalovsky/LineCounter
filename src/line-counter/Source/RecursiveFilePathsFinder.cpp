@@ -30,7 +30,7 @@ FilePaths RecursiveFilePathsFinder::getAllPathsFromDirectory(const std::string& 
 {
     try
     {
-        return fileAccess->getAllFilenamesFromDirectory(directoryPath);
+        return fileAccess->getAllPathsFromDirectory(directoryPath);
     }
     catch (const utils::exceptions::DirectoryNotFound& e)
     {

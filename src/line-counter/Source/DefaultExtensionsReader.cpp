@@ -17,7 +17,11 @@ FileExtensions DefaultExtensionsReader::readExtensions(const std::string& filePa
 {
     if (const auto fileContent = readFileContainingExtensions(filePath))
     {
-        return utils::getSplitLines(*fileContent);
+        for( auto l : utils::getSplitLines(*fileContent))
+        {
+            std::cerr<<l<<std::endl;
+        }
+        return {};
     }
     return {};
 }

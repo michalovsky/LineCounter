@@ -5,6 +5,7 @@ set(SOURCES
         Source/DefaultPathsToIgnoreReader.cpp
         Source/RecursiveFilePathsFinder.cpp
         Source/DefaultFilePathsSelector.cpp
+        Source/LineCounterApplication.cpp
         )
 
 set(UT_SOURCES

@@ -24,12 +24,14 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b)
     return (a == b);
 }
 const auto targetPath{"targetPath"};
-const auto pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
-const auto pathToFileWithExtensions{"pathToFileWithExtensions"};
+const std::string pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
+const std::string pathToFileWithExtensions{"pathToFileWithExtensions"};
 const ConfigFilePaths configFilePaths{targetPath, pathToFileWithPathsToIgnore, pathToFileWithExtensions};
+const ConfigFilePaths configFilePathsTargetOnly{targetPath, "", ""};
 const PathsToIgnore noPathsToIgnore{};
 const PathsToIgnore pathsToIgnore{"line-counter/"};
 const FileExtensions extensions{".cpp", ".h"};
+const FileExtensions noExtensions{};
 const FilePaths filePaths{"/home/michal/line-counter/Main.cpp", "/home/michal/xxxx", "aaa.pdf", "c.diff",
                           "glossary.h"};
 const FilePaths filePathsWithSelectedExtensions{"/home/michal/line-counter/Main.cpp", "glossary.h"};
@@ -51,6 +53,29 @@ public:
     DefaultFilePathsSelector selector{std::move(filePathsFinderInit), std::move(pathsToIgnoreReaderInit),
                                       std::move(extensionsReaderInit)};
 };
+
+TEST_F(DefaultFilePathsSelectorTest,
+       givenConfigFilePathsWithoutPathToPathsToIgnoreAndWithoutPathToExtensions_shouldSelectAllGivenFilePaths)
+{
+    EXPECT_CALL(*filePathsFinder, findFilePaths(targetPath)).WillOnce(Return(filePaths));
+
+    const auto actualFilePaths = selector.selectFilePaths(configFilePathsTargetOnly);
+
+    ASSERT_TRUE(compareVectors(actualFilePaths, filePaths));
+}
+
+TEST_F(DefaultFilePathsSelectorTest,
+       givenEmptyPathsToIgnoreAndNoSpecificExtensions_shouldSelectAllGivenFilePaths)
+{
+    EXPECT_CALL(*filePathsFinder, findFilePaths(targetPath)).WillOnce(Return(filePaths));
+    EXPECT_CALL(*pathsToIgnoreReader, readPathsToIgnore(pathToFileWithPathsToIgnore))
+        .WillOnce(Return(noPathsToIgnore));
+    EXPECT_CALL(*extensionsReader, readExtensions(pathToFileWithExtensions)).WillOnce(Return(noExtensions));
+
+    const auto actualFilePaths = selector.selectFilePaths(configFilePaths);
+
+    ASSERT_TRUE(compareVectors(actualFilePaths, filePaths));
+}
 
 TEST_F(DefaultFilePathsSelectorTest,
        givenEmptyPathsToIgnoreAndSpecificExtensions_shouldSelectAppropriateFilePaths)

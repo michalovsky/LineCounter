@@ -18,6 +18,8 @@ public:
     FilePaths selectFilePaths(const ConfigFilePaths&) const override;
 
 private:
+    PathsToIgnore readPathsToIgnore(const std::string& path) const;
+    FileExtensions readExtensions(const std::string& path) const;
     void deleteFilePathsContainingPathToIgnore(FilePaths&, const PathsToIgnore&) const;
     void deleteFilePathsWithoutSpecificExtensions(FilePaths&, const FileExtensions&) const;
     bool filePathContainsPathToIgnore(const std::string&, const PathsToIgnore&) const;

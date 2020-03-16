@@ -11,15 +11,15 @@ using namespace lineCounter;
 namespace
 {
 const auto targetPath{"targetPath"};
-const auto pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
-const auto pathToFileWithExtensions{"pathToFileWithExtensions"};
+const std::string pathToFileWithPathsToIgnore{"pathToFileWithPathsToIgnore"};
+const std::string pathToFileWithExtensions{"pathToFileWithExtensions"};
 const ConfigFilePaths configFilePaths{targetPath, pathToFileWithPathsToIgnore, pathToFileWithExtensions};
-const std::string file1Path{"file1Path"};
-const std::string file1Content{""};
-const std::string file2Path{"file2Path"};
-const std::string file2Content{"a\nb\nc"};
-const std::string file3Path{"file3Path"};
-const std::string file3Content{"1\n2"};
+const auto file1Path{"file1Path"};
+const auto file1Content{""};
+const auto file2Path{"file2Path"};
+const auto file2Content{"a\nb\nc"};
+const auto file3Path{"file3Path"};
+const auto file3Content{"1\n2"};
 const FilePaths filePaths{file1Path, file2Path, file3Path};
 const auto expectedAmountOfLines{5};
 }
