@@ -13,7 +13,8 @@ Counts lines from files in given path.
 
     lineCounter::LineCounterApplication lineCounterApp;
 
-    const auto targetPathToCountLinesIn = "/home/michal/repos/glossary/src";
+    const std::vector<std::string> targetPathsToCountLinesIn = {"/home/michal/repos/rpg/src",
+                                                               "/home/michal/repos/rpg/include"};
     const auto pathToFileWithPathsToIgnore =
         "/home/michal/repos/line-counter/exampleConfigFiles/examplePathsToIgnore.txt";
     const auto pathToFileWithExtensions =
@@ -21,10 +22,11 @@ Counts lines from files in given path.
     lineCounter::ConfigFilePaths configFilePaths{targetPathToCountLinesIn, pathToFileWithPathsToIgnore,
                                                  pathToFileWithExtensions};
     const auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);
+    std::cout << "Amount of lines in paths:" << amountOfLines;
     
 <b>Configuration of files:</b>
 <ol>  
-     <li>targetPathToCountLinesIn - path to file or directory where lines will be counted recursively</li>  
+     <li>targetPathToCountLinesIn - paths to files or directories where lines will be counted recursively</li>  
      <li>pathToFileWithPathsToIgnore - path to file that contains paths that will be ignored from counting lines</li> 
      <li>pathToFileWithExtensions - path to file that contains file extensions according to which files will be selected</li>  
 </ol>  
