@@ -22,6 +22,7 @@ DefaultFilePathsSelector::DefaultFilePathsSelector(
 
 FilePaths DefaultFilePathsSelector::selectFilePaths(const ConfigFilePaths& configFilePaths) const
 {
+    //TODO: no extensions should return all filenames
     auto filePaths = filePathFinder->findFilePaths(configFilePaths.targetPathToCountLinesIn);
     const auto pathsToIgnore =
         pathsToIgnoreReader->readPathsToIgnore(configFilePaths.pathToFileWithPathsToIgnore);

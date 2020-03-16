@@ -1,5 +1,7 @@
 #include "LineCounter.h"
 
+#include "utils/StringHelper.h"
+
 namespace lineCounter
 {
 LineCounter::LineCounter(std::unique_ptr<FilePathsSelector> filePathsSelectorInit,
@@ -8,54 +10,31 @@ LineCounter::LineCounter(std::unique_ptr<FilePathsSelector> filePathsSelectorIni
 {
 }
 
-long LineCounter::getAmountOfLines(const std::string& dirPath) const
+long LineCounter::getAmountOfLines(const ConfigFilePaths& paths) const
 {
-    return calculateLines(dirPath);
+    const auto filePaths = getAllFilePathsFromPath(paths);
+    return calculateLinesFromFilePaths(filePaths);
 }
 
-long LineCounter::calculateLines(const std::string&) const
+FilePaths LineCounter::getAllFilePathsFromPath(const ConfigFilePaths& paths) const
 {
-    return 0;
-    //    try
-    //    {
-    //        setListOfFiles(dirPath);
-    //    }
-    //    catch(std::string error)
-    //    {
-    //        std::cerr << error << std::endl;
-    //    }
-    //
-    //    long amountLines = 0;
-    //
-    //    for (auto & file : listOfFiles)
-    //    {
-    //        for (auto & line : File::getLines(file))
-    //        {
-    //            amountLines++;
-    //        }
-    //    }
-    //
-    //    return amountLines;
+    return filePathsSelector->selectFilePaths(paths);
 }
 
-std::vector<std::string> LineCounter::getFilePathsFromDirectory(const std::string&) const
+long LineCounter::calculateLinesFromFilePaths(const FilePaths& filePaths) const
 {
-    return {};
-    //    fs::path directoryPath(dirPath);
-    //
-    //    if (!fs::exists(directoryPath) || !fs::is_directory(directoryPath))
-    //    {
-    //        throw ("Folder: " + directoryPath.string() + " does not exist or is not a directiory");
-    //    }
-    //
-    //    std::cout << "Project name: " << directoryPath.filename() << std::endl;
-    //
-    //    for (auto & p : fs::recursive_directory_iterator(directoryPath))
-    //    {
-    //        if (p.path().extension() == ".h" || p.path().extension() == ".cpp")
-    //        {
-    //            listOfFiles.push_back(p.path().string());
-    //        }
-    //    }
+    long amountOfLinesFromFiles = 0;
+
+    for (const auto& filePath : filePaths)
+    {
+        const auto fileContent = fileAccess->readContent(filePath);
+        if(not fileContent.empty())
+        {
+            const auto amountOfLinesInFile = utils::getSplitLines(fileContent).size();
+            amountOfLinesFromFiles += amountOfLinesInFile;
+        }
+    }
+    return amountOfLinesFromFiles;
 }
+
 }

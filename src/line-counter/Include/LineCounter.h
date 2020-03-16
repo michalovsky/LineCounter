@@ -13,11 +13,11 @@ class LineCounter
 public:
     LineCounter(std::unique_ptr<FilePathsSelector>, std::shared_ptr<utils::FileAccess>);
 
-    long getAmountOfLines(const std::string& dirPath) const;
+    long getAmountOfLines(const ConfigFilePaths&) const;
 
 private:
-    long calculateLines(const std::string& dirPath) const;
-    std::vector<std::string> getFilePathsFromDirectory(const std::string& dirPath) const;
+    FilePaths getAllFilePathsFromPath(const ConfigFilePaths&) const;
+    long calculateLinesFromFilePaths(const FilePaths&) const;
 
     std::vector<std::string> listOfFiles;
     std::unique_ptr<FilePathsSelector> filePathsSelector;
