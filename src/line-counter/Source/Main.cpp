@@ -6,14 +6,14 @@ int main()
 {
     lineCounter::LineCounterApplication lineCounterApp;
 
-    std::string targetPathToCountLinesIn = "/home/michal/repos/glossary/src";
-    std::string pathToFileWithPathsToIgnore =
+    const auto targetPathToCountLinesIn = "/home/michal/repos/glossary/src";
+    const auto pathToFileWithPathsToIgnore =
         "/home/michal/repos/line-counter/exampleConfigFiles/examplePathsToIgnore.txt";
-    std::string pathToFileWithExtensions =
+    const auto pathToFileWithExtensions =
         "/home/michal/repos/line-counter/exampleConfigFiles/exampleExtensions.txt";
     lineCounter::ConfigFilePaths configFilePaths{targetPathToCountLinesIn, pathToFileWithPathsToIgnore,
                                                  pathToFileWithExtensions};
-    auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);
+    const auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);
     std::cout << "Amount of lines in path: " << targetPathToCountLinesIn << " = " << amountOfLines;
     return 0;
 }
