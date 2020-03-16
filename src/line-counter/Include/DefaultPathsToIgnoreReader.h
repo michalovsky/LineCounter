@@ -18,6 +18,8 @@ public:
 
 private:
     boost::optional<std::string> readFileContainingIgnoredPaths(const std::string& filePath) const;
+    PathsToIgnore selectExistingPaths(const PathsToIgnore&) const;
+
     std::shared_ptr<utils::FileAccess> fileAccess;
 };
 }

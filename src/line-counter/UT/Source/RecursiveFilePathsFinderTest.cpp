@@ -37,7 +37,7 @@ TEST_F(RecursiveFilePathsFinderTest, givenFilePath_shouldReturnFilePathsWithOneF
 TEST_F(RecursiveFilePathsFinderTest, givenNonExistingDirectoryPath_shouldReturnEmptyFilePaths)
 {
     EXPECT_CALL(*fileAccess, isRegularFile(nonExistingDirectoryPath)).WillOnce(Return(false));
-    EXPECT_CALL(*fileAccess, getAllFilenamesFromDirectory(nonExistingDirectoryPath))
+    EXPECT_CALL(*fileAccess, getAllPathsFromDirectory(nonExistingDirectoryPath))
         .WillOnce(Throw(utils::exceptions::DirectoryNotFound{""}));
 
     const auto actualFilePaths = filePathsFinder.findFilePaths(nonExistingDirectoryPath);
@@ -48,7 +48,7 @@ TEST_F(RecursiveFilePathsFinderTest, givenNonExistingDirectoryPath_shouldReturnE
 TEST_F(RecursiveFilePathsFinderTest, givenExistingDirectoryPath_shouldReturnAllFilePathsFromThisDirectory)
 {
     EXPECT_CALL(*fileAccess, isRegularFile(existingDirectoryPath)).WillOnce(Return(false));
-    EXPECT_CALL(*fileAccess, getAllFilenamesFromDirectory(existingDirectoryPath)).WillOnce(Return(filePaths));
+    EXPECT_CALL(*fileAccess, getAllPathsFromDirectory(existingDirectoryPath)).WillOnce(Return(filePaths));
 
     const auto actualFilePaths = filePathsFinder.findFilePaths(existingDirectoryPath);
 

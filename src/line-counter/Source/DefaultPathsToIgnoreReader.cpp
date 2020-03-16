@@ -17,7 +17,8 @@ PathsToIgnore DefaultPathsToIgnoreReader::readPathsToIgnore(const std::string& f
 {
     if (const auto fileContent = readFileContainingIgnoredPaths(filePath))
     {
-        return utils::getSplitLines(*fileContent);
+        const auto pathsToIgnore = utils::getNonEmptyLines(utils::getSplitLines(*fileContent));
+        return selectExistingPaths(pathsToIgnore);
     }
     return {};
 }
@@ -34,6 +35,19 @@ DefaultPathsToIgnoreReader::readFileContainingIgnoredPaths(const std::string& fi
         std::cerr << "Error while reading ignored paths:" << e.what();
         return boost::none;
     }
+}
+
+PathsToIgnore DefaultPathsToIgnoreReader::selectExistingPaths(const PathsToIgnore& pathsToIgnore) const
+{
+    PathsToIgnore existingPaths;
+    for (const auto& pathToIgnore : pathsToIgnore)
+    {
+        if (fileAccess->isRegularFile(pathToIgnore) || fileAccess->isDirectory(pathToIgnore))
+        {
+            existingPaths.push_back(pathToIgnore);
+        }
+    }
+    return existingPaths;
 }
 
 }

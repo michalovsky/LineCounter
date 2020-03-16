@@ -1,7 +1,5 @@
 #include "LineCounter.h"
 
-#include <iostream>
-
 #include "utils/StringHelper.h"
 
 namespace lineCounter
@@ -29,7 +27,6 @@ long LineCounter::calculateLinesFromFilePaths(const FilePaths& filePaths) const
 
     for (const auto& filePath : filePaths)
     {
-//        std::cout<<filePath<<std::endl;
         const auto fileContent = fileAccess->readContent(filePath);
         if (not fileContent.empty())
         {

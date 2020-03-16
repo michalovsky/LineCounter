@@ -1,0 +1,2 @@
+/home/michal/repos/glossary/externals
+/somePath

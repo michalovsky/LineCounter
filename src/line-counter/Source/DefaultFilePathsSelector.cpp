@@ -1,7 +1,6 @@
 #include "DefaultFilePathsSelector.h"
 
 #include <algorithm>
-#include <iostream>
 
 #include "boost/algorithm/cxx11/any_of.hpp"
 #include "boost/algorithm/string/predicate.hpp"
@@ -25,26 +24,19 @@ FilePaths DefaultFilePathsSelector::selectFilePaths(const ConfigFilePaths& confi
 {
     auto filePaths = filePathFinder->findFilePaths(configFilePaths.targetPathToCountLinesIn);
     const auto pathsToIgnore = readPathsToIgnore(configFilePaths.pathToFileWithPathsToIgnore);
-    for(auto p : pathsToIgnore)
-    {
-        std::cout<<p<<"\n";
-    }
     const auto fileExtensions = readExtensions(configFilePaths.pathToFileWithExtensions);
-    for(auto x : pathsToIgnore)
-    {
-        std::cout<<x<<"\n";
-    }
     deleteFilePathsContainingPathToIgnore(filePaths, pathsToIgnore);
-    if(not fileExtensions.empty())
+    if (not fileExtensions.empty())
     {
         deleteFilePathsWithoutSpecificExtensions(filePaths, fileExtensions);
     }
     return filePaths;
 }
 
-PathsToIgnore DefaultFilePathsSelector::readPathsToIgnore(const std::string& pathToFileWithPathsToIgnore) const
+PathsToIgnore
+DefaultFilePathsSelector::readPathsToIgnore(const std::string& pathToFileWithPathsToIgnore) const
 {
-    if(pathToFileWithPathsToIgnore.empty())
+    if (pathToFileWithPathsToIgnore.empty())
     {
         return {};
     }
@@ -53,7 +45,7 @@ PathsToIgnore DefaultFilePathsSelector::readPathsToIgnore(const std::string& pat
 
 FileExtensions DefaultFilePathsSelector::readExtensions(const std::string& pathToFileWithExtensions) const
 {
-    if(pathToFileWithExtensions.empty())
+    if (pathToFileWithExtensions.empty())
     {
         return {};
     }
