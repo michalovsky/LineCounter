@@ -1,14 +1,13 @@
 #include "DefaultFileAccess.h"
 
-#include <experimental/filesystem>
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 
-#include "GetProjectPath.h"
 #include "exceptions/DirectoryNotFound.h"
 #include "exceptions/FileNotFound.h"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 namespace utils
 {
@@ -105,7 +104,7 @@ std::vector<std::string> DefaultFileAccess::getAllPathsFromDirectory(const std::
 
     std::vector<std::string> listOfFiles;
 
-    if (not fs::exists(directoryPath) || not isDirectory(directoryPath))
+    if (not fs::exists(directoryPath) || not isDirectory(directoryPath.string()))
     {
         throw exceptions::DirectoryNotFound{directoryNotFoundMessage + absolutePath};
     }
@@ -128,7 +127,7 @@ DefaultFileAccess::getFilteredFilenamesFromDirectory(const std::string& absolute
                                                      const std::vector<std::string>& extensions) const
 {
     const auto filenames = filenamePathFilter.filterFilenames(getAllPathsFromDirectory(absolutePath));
-    const auto filteredFilenames = fileExtensionsFilter.filterByExtensions(filenames, extensions);
+    auto filteredFilenames = fileExtensionsFilter.filterByExtensions(filenames, extensions);
     return filteredFilenames;
 }
 

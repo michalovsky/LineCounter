@@ -6,12 +6,11 @@ int main()
 {
     lineCounter::LineCounterApplication lineCounterApp;
 
-    const std::vector<std::string> targetPathsToCountLinesIn = {"/home/michal/repos/rpg/src",
-                                                               "/home/michal/repos/rpg/include"};
+    const std::vector<std::string> targetPathsToCountLinesIn = {"C:\\repos\\chimarrao-platformer\\src"};
     const auto pathToFileWithPathsToIgnore =
-        "/home/michal/repos/line-counter/exampleConfigFiles/examplePathsToIgnore.txt";
+        "C:\\repos\\line-counter\\exampleConfigFiles\\examplePathsToIgnore.txt";
     const auto pathToFileWithExtensions =
-        "/home/michal/repos/line-counter/exampleConfigFiles/exampleExtensions.txt";
+        "C:\\repos\\line-counter\\exampleConfigFiles\\exampleExtensions.txt";
     lineCounter::ConfigFilePaths configFilePaths{targetPathsToCountLinesIn, pathToFileWithPathsToIgnore,
                                                  pathToFileWithExtensions};
     const auto amountOfLines = lineCounterApp.getAmountOfLines(configFilePaths);

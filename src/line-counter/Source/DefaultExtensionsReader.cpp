@@ -31,7 +31,7 @@ DefaultExtensionsReader::readFileContainingExtensions(const std::string& filePat
     }
     catch (const utils::exceptions::FileNotFound& e)
     {
-        std::cerr << "Error while reading extensions:" << e.what();
+        std::cerr << "\nError while reading extensions:" << e.what();
         return boost::none;
     }
 }

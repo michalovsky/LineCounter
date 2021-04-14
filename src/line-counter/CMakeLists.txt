@@ -19,13 +19,13 @@ set(UT_SOURCES
 add_executable(line-counter ${SOURCES} Source/Main.cpp)
 add_executable(line-counterUT ${UT_SOURCES} ${SOURCES})
 
-target_include_directories(line-counter PUBLIC "Include" PRIVATE)
-target_include_directories(line-counterUT PUBLIC "Include" "UT/Doubles" "UT/")
+target_include_directories(line-counter PUBLIC "Include" PRIVATE ${Boost_INCLUDE_DIR})
+target_include_directories(line-counterUT PUBLIC "Include" "UT/Doubles" "UT/" ${Boost_INCLUDE_DIR})
 
 target_link_libraries(line-counter PUBLIC ${Boost_LIBRARIES} utils)
 target_link_libraries(line-counterUT PUBLIC gtest_main gmock pthread utils)
 
 target_compile_options(line-counter PUBLIC ${FLAGS})
-target_compile_options(line-counterUT PUBLIC -Wall -Wextra -Werror)
+target_compile_options(line-counterUT PUBLIC ${FLAGS})
 
 add_test(line-counterUT line-counterUT --gtest_color=yes)
